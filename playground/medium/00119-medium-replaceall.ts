@@ -18,10 +18,16 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type ReplaceAll<S extends string, From extends string, To extends string> = any
+type ReplaceAll<S extends string, From extends string, To extends string> = From extends ''
+  ? S
+  : S extends `${infer L}${From}${infer R}`
+    ? `${L}${To}${ReplaceAll<R, From, To>}`
+    : S
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
+
+type a = ReplaceAll<'t y p e s', ' ', ''>
 
 type cases = [
   Expect<Equal<ReplaceAll<'foobar', 'bar', 'foo'>, 'foofoo'>>,

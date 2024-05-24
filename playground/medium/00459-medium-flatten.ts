@@ -18,10 +18,15 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type Flatten = any
-
+type Flatten<S extends any[], LIST extends any[] = []> = S extends [infer first, ...infer other]
+  ? first extends any[]
+    ? Flatten<[...first, ...other], LIST>
+    : Flatten<other, [...LIST, first]>
+  : LIST
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
+
+type a = Flatten<[1, 2, [3], [[[5]]]]>
 
 type cases = [
   Expect<Equal<Flatten<[]>, []>>,

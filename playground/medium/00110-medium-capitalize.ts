@@ -18,11 +18,12 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type MyCapitalize<S extends string> = any
+type MyCapitalize<S extends string> = S extends `${infer R}${infer RR}` ? `${Uppercase<R>}${RR}` : S;
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
 
+type a = MyCapitalize<'foobar'>
 type cases = [
   Expect<Equal<MyCapitalize<'foobar'>, 'Foobar'>>,
   Expect<Equal<MyCapitalize<'FOOBAR'>, 'FOOBAR'>>,

@@ -23,14 +23,13 @@
 /* _____________ 여기에 코드 입력 _____________ */
 
 // type Length<T extends ArrayLike<any>> = T['length'];
-type Length<T> = T extends ArrayLike<any> ? T['length'] : T;
-
+type Length<T> = T extends ArrayLike<[]> ? T['length'] : T
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
 
-const tesla = ['tesla', 'model 3', 'model X', 'model Y'] as const
-const spaceX = ['FALCON 9', 'FALCON HEAVY', 'DRAGON', 'STARSHIP', 'HUMAN SPACEFLIGHT'] as const
+const tesla = ['tesla', 'model 3', 'model X', 'model Y']
+const spaceX = ['FALCON 9', 'FALCON HEAVY', 'DRAGON', 'STARSHIP', 'HUMAN SPACEFLIGHT']
 
 type cases = [
   Expect<Equal<Length<typeof tesla>, 4>>,

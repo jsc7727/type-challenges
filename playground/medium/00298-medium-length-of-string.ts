@@ -12,11 +12,14 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type LengthOfString<S extends string> = any
+
+
+type LengthOfString<S extends string, LIST extends any[] = []> = S extends `${infer R}${infer RR}` ? LengthOfString<RR, [...LIST, R]> : LIST['length']
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
 
+type a = LengthOfString<''>
 type cases = [
   Expect<Equal<LengthOfString<''>, 0>>,
   Expect<Equal<LengthOfString<'kumiko'>, 6>>,
