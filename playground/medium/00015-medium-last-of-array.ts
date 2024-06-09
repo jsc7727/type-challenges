@@ -24,7 +24,7 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type Last<T extends any[]> = T extends [...infer First, infer Last] ? Last : never;
+type Last<T extends any[]> = T extends [...infer A, infer B] ? B : []
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

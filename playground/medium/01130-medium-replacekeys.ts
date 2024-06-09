@@ -45,7 +45,19 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type ReplaceKeys<U, T, Y> = any
+// type ReplaceKeysTest1<U, T, Y> = U extends infer K ? K : never
+// type test1 = ReplaceKeys<Nodes, 'name' | 'flag', { name: number, flag: string }>
+
+// type test2A = Omit<NodeA, 'name' | 'flag'>
+// type test2B = Omit<NodeB, 'name' | 'flag'>
+// type test2C = Omit<NodeC, 'name' | 'flag'>
+
+type ReplaceKeys<U, T extends string, Y> = {
+  [K in keyof U]:
+  K extends T
+    ? (K extends keyof Y ? Y[K] : never)
+    : U[K]
+}
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

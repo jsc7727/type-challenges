@@ -44,6 +44,12 @@ type Chainable<T = {}> = {
   get(): T
 }
 
+// Omit을 안하면 타입이 바뀌어서 해야됨 result3가 문제 string => number 로 바뀌는거 걸러야하기에
+// type ChainableTest<T = {}> = {
+//   option<K extends PropertyKey, V>(key: K extends keyof T ? never : K, value: V): Chainable<T & { [P in K]: V }>
+//   get(): T
+// }
+
 /* _____________ 테스트 케이스 _____________ */
 import type { Alike, Expect } from '@type-challenges/utils'
 

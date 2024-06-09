@@ -24,11 +24,25 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type KebabCase<S> = any
+type KebabCase<S extends string, IsFirstChar extends boolean = true> =
+  S extends `${infer First}${infer Rest}`
+    ? First extends Lowercase<First>
+      ? `${First}${KebabCase<Rest, false>}`
+      : IsFirstChar extends true
+        ? `${Lowercase<First>}${KebabCase<Rest, false>}`
+        : `-${Lowercase<First>}${KebabCase<Rest, false>}`
+    : S
 
+  type KebabCase2<S extends string> = S extends `${infer S1}${infer S2}`
+    ? S2 extends Uncapitalize<S2>
+      ? `${Uncapitalize<S1>}${KebabCase<S2>}`
+      : `${Uncapitalize<S1>}-${KebabCase<S2>}`
+    : S
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
 
+type a = KebabCase2<'FooBarBaz'>
+type b = KebabCase2<'ABC'>
 type cases = [
   Expect<Equal<KebabCase<'FooBarBaz'>, 'foo-bar-baz'>>,
   Expect<Equal<KebabCase<'fooBarBaz'>, 'foo-bar-baz'>>,

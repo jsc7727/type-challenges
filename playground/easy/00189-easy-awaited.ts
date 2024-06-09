@@ -22,7 +22,7 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type MyAwaited<T> = Awaited<T>;
+type MyAwaited<T> = Awaited<T>
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
@@ -32,6 +32,9 @@ type Y = Promise<{ field: number }>
 type Z = Promise<Promise<string | number>>
 type Z1 = Promise<Promise<Promise<string | boolean>>>
 type T = { then: (onfulfilled: (arg: number) => any) => any }
+
+const temp = [1, 2, Promise.resolve(3)] as const
+type test = Awaited<temp>
 
 type cases = [
   Expect<Equal<MyAwaited<X>, string>>,

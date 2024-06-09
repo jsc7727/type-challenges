@@ -23,9 +23,18 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
+// https://www.typescriptlang.org/ko/docs/handbook/release-notes/typescript-4-0.html#variadic-tuple-types
+
+//  배열 리터럴 [1, 2, 3]을 전달하면 반환 타입은 { 0: 1, 1: 2, 2: 3 }과 같은 객체 타입이 됩니다.
+
 declare function PromiseAll<T extends any[]>(values: readonly [...T]): Promise<{
   [P in keyof T]: T[P] extends Promise<infer R> | infer R ? R : never
-}>;
+}>
+
+// declare function PromiseTest<T extends any[]>(values: readonly [...T]): {
+//   [P in keyof T]: T[P]
+// }
+// const promiseTest = PromiseTest([1, 2, 3] as const)
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

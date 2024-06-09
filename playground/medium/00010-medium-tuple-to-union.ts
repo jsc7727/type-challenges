@@ -20,11 +20,13 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type TupleToUnion<T extends any[]> = T[number];
+// type TupleToUnion<T extends any[]> = T[number];
+type TupleToUnion<T extends any[]> = T extends (infer U)[] ? U : never
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
 
+type a = TupleToUnion<[123, '456', true]>
 type cases = [
   Expect<Equal<TupleToUnion<[123, '456', true]>, 123 | '456' | true>>,
   Expect<Equal<TupleToUnion<[123]>, 123>>,

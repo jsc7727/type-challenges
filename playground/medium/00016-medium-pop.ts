@@ -26,7 +26,7 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type Pop<T extends any[]> = T extends [...infer Rest, infer last] ? Rest : [];
+type Pop<T extends any[]> = T extends [...infer A, infer B] ? A : []
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

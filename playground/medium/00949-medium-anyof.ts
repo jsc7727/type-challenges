@@ -23,7 +23,11 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type AnyOf<T extends readonly any[]> = any
+type AnyOf<T extends readonly any[]> = T[number] extends 0 | '' | false | [] | Record<string, never> | undefined | null
+  ? false
+  : true
+
+type aa = AnyOf<[0, '', false, [], {}, undefined, null]>
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
