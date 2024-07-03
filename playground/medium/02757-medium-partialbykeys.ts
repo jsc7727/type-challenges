@@ -26,7 +26,7 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type PartialByKeys<T, K> = any
+type PartialByKeys<T, K extends keyof T = keyof T> = Omit<Omit<T, K> & Partial<Pick<T, K>>, never>
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
