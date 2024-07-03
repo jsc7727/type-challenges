@@ -14,8 +14,7 @@
 
 type Diff<O, O1> = Omit<O & O1, keyof (O | O1)>
 
-type temp = keyof (Foo | Bar)
-type asdf = keyof (Foo | Bar)
+type a1 = keyof (Foo | Bar)
 
 type a = Diff<Foo, Bar>
 /* _____________ 테스트 케이스 _____________ */

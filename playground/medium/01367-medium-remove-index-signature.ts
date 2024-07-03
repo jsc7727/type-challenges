@@ -23,7 +23,11 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type RemoveIndexSignature<T> = any
+type RemoveIndexSignature<T> = { [K in keyof T as {} extends Record<K, unknown> ? never : K]: T[K] }
+
+type a1 = RemoveIndexSignature<Foo>
+
+type a2 = Record<string, unknown>
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

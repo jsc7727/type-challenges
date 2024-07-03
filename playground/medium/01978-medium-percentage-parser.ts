@@ -30,7 +30,15 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type PercentageParser<A extends string> = any
+// type CheckLeft =
+
+type Check<T> = T extends `${infer S}%` ? [S, '%'] : [T, '']
+
+type PercentageParser<A extends string> = A extends `${infer L}${infer R}`
+  ? L extends '+' | '-'
+    ? [L, ...Check<R>]
+    : ['', ...Check<A>]
+  : ['', ...Check<A>]
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

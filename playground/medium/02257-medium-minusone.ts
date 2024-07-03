@@ -16,10 +16,14 @@
 
   > GitHub에서 보기: https://tsch.js.org/2257/ko
 */
-
+// ??????????????????????
 /* _____________ 여기에 코드 입력 _____________ */
 
-type MinusOne<T extends number> = any
+type Pop<T extends any[]> = T extends [...infer head, any] ? head : never
+
+type MinusOne<T extends number, A extends any[] = []> = A['length'] extends T
+  ? Pop<A>['length']
+  : MinusOne<T, [...A, 0]>
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
