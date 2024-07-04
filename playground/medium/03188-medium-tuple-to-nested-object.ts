@@ -18,7 +18,13 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type TupleToNestedObject<T, U> = any
+type TupleToNestedObject<T, U> = T extends [infer first, ...infer rest]
+  ? {
+      [K in PropertyKey & first ]: TupleToNestedObject<rest, U>
+    }
+  : U
+
+  type temp1 = TupleToNestedObject<['a', 'b', 'c'], boolean>
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
