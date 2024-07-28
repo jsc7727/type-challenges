@@ -19,7 +19,12 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type Chunk = any
+type Chunk<R extends any[], C extends number, S extends any[] = []> =
+  S['length'] extends C
+    ? [S, ...Chunk<R, C>]
+    : R extends [infer F, ...infer ETC]
+      ? Chunk<ETC, C, [...S, F]>
+      : S extends [] ? S : [S]
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

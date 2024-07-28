@@ -21,7 +21,13 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type Fibonacci<T extends number> = any
+// type Fibonacci<T> = T extends 2
+//   ?
+//   : Fibonacci<Number<`${T-1}`>>
+
+type Fibonacci<T extends number, CurrentIndex extends any[] = [unknown], Prev extends any[] = [], Current extends any[] = [1]> = CurrentIndex['length'] extends T
+  ? Current['length']
+  : Fibonacci<T, [...CurrentIndex, unknown], Current, [...Prev, ...Current]>
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

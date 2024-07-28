@@ -19,7 +19,18 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type AllCombinations<S> = any
+type String2Union<S extends string> =
+  S extends `${infer FirstChar}${infer Rest}`
+    ? FirstChar | String2Union<Rest>
+    : S
+
+type AllCombinations<
+  S extends string,
+  CharUnion extends string = String2Union<S>,
+  CurrentChar extends string = CharUnion,
+> = CurrentChar extends CurrentChar
+  ? `${CurrentChar}${AllCombinations<'', Exclude<CharUnion, CurrentChar>> | ''}`
+  : never
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

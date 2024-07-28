@@ -15,11 +15,14 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type Zip<T, U> = any
+type Zip<T extends any[], U extends any[], ALL extends any[] = []> = ALL['length'] extends T['length'] | U['length']
+  ? ALL
+  : Zip<T, U, [...ALL, [T[ALL['length']], U[ALL['length']]]]>
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
 
+type temp = Zip<[1, 2], [true, false]>
 type cases = [
   Expect<Equal<Zip<[], []>, []>>,
   Expect<Equal<Zip<[1, 2], [true, false]>, [[1, true], [2, false]]>>,

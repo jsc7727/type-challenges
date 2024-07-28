@@ -16,7 +16,11 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type BEM<B extends string, E extends string[], M extends string[]> = any
+export type IsNever<U1> = [U1] extends [never]
+  ? ''
+  : U1
+
+type BEM<B extends string, E extends string[], M extends string[]> = `${B}${IsNever<`__${E[number]}`>}${IsNever<`--${M[number]}`>}`
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

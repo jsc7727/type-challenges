@@ -25,7 +25,25 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type GreaterThan<T extends number, U extends number> = any
+// type GreaterThan<T extends number, U extends number, C extends any[] = []> = C['length'] extends T | U
+//   ? T extends C['length']
+//     ? false
+//     : true
+//   : GreaterThan<T, U, [...C, 1]>
+
+// type ArrayWithLength<T extends number, U extends any[] = []> = U['length'] extends T ? U : ArrayWithLength<T, [true, ...U]>
+// type GreaterThan<T extends number, U extends number> = ArrayWithLength<U> extends [...ArrayWithLength<T>, ...infer _] ? false : true
+
+type GetSymbol<A extends string, B extends string, F extends any[] = []> =
+  `${F['length']}` extends A
+    ? `${F['length']}` extends B ? '=' : '<'
+    : `${F['length']}` extends B ? '>' : GetSymbol<A, B, [...F, 1]>
+
+type GreaterThan<T extends number | string, U extends number | string, S extends '>' | '<' | '=' = '='> =
+  `${T}` extends `${infer A}${infer R1}`
+    ? `${U}` extends `${infer B}${infer R2}`
+      ? GreaterThan<R1, R2, S extends '=' ? GetSymbol<A, B> : S> : true
+    : `${U}` extends `${any}${any}` ? false : S extends '>' ? true : false
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

@@ -21,7 +21,15 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type FlattenDepth = any
+type FlattenDepth<T extends any[], DEPTH extends number = 1> = DEPTH extends 0
+  ? T
+  : T extends [infer L, ...infer R]
+    ? L extends any[]
+      ? [...FlattenDepth<L, DEPTH>, ...FlattenDepth<R, DEPTH>]
+      : [L, ...FlattenDepth<R, DEPTH>]
+    : T
+
+type temp1 = FlattenDepth<[1, 2, [ 3, [[ [4]]]]]>
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
