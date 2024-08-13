@@ -24,7 +24,14 @@ type Fill<
   N,
   Start extends number = 0,
   End extends number = T['length'],
-> = any
+  L extends any[] = [],
+> = T extends [infer H, ...infer R]
+  ? [...L, 0][Start] extends undefined
+      ? Fill<R, N, Start, End, [...L, H]>
+      : [...L, 0][End] extends undefined
+          ? Fill<R, N, Start, End, [...L, N]>
+          : Fill<R, N, Start, End, [...L, H]>
+  : L
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

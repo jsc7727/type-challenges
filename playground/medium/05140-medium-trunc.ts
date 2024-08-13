@@ -18,7 +18,7 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type Trunc = any
+type Trunc<T extends number | string> = `${T}` extends `.${string}` ? '0' : `${T}` extends `${infer L}.${string}` ? L : `${T}`
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
